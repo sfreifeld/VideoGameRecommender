@@ -1,0 +1,89 @@
+
+body {
+    font-family: 'Oxanium', sans-serif;
+    background-color: #000123;
+}
+
+.bg-custom {
+    background-color: #EEEEF4; 
+}
+
+.nav-link {
+    color: #000123;
+    font-weight: 600;
+    font-size: larger;
+}
+
+.btn {
+    background-color: #351c81;
+    border-radius: 15px; 
+    color: #ffff;
+
+}
+
+#submit-btn {
+    background-color: #FF0F7B;
+
+}
+
+.btn:hover {
+    color: inherit; /* This will make the font color the same as the normal state */
+    box-shadow: 2px 2px 5px #FF0F7B;
+}
+
+.disabled {
+    background-color: #8d8d8e ; /* replace with your desired gray color */
+    cursor: not-allowed;
+}
+
+#games-container {
+    display: flex;
+    flex-wrap: wrap; /* This will allow the items to wrap to the next line if the container width is not enough */
+}
+
+.selected-game {
+    margin-right: 20px;
+}
+
+.game-cover {
+    width: 150px; 
+    margin-bottom: 50px;
+}
+
+.title-container {
+    display: flex;
+    justify-content: space-between; /* This will add space between the game title and the delete button */
+    align-items: center; /* This will vertically center the game title and the delete button */
+}
+
+.delete-button {
+    background-color: #FF0F7B; /* adjust as needed */
+    color: #fff; /* adjust as needed */
+    border: none; /* adjust as needed */
+    padding: 3px 8px 3px 7px; /* adjust as needed */
+    text-align: center; /* adjust as needed */
+    text-decoration: none; /* adjust as needed */
+    display: inline-block; /* adjust as needed */
+    font-size: 16px; /* adjust as needed */
+    margin: 4px 2px; /* adjust as needed */
+    cursor: pointer; /* adjust as needed */
+    border-radius: 15px; /* adjust as needed */
+}
+
+.ui-autocomplete {
+    background-color: #EEEEF4;
+    color: #000123/* replace #yourColor with your desired color */
+}
+
+#spacing-q1 {
+    margin-bottom: 225px !important;  /* Adjust this value as needed */
+}
+
+#spacing-q2 {
+    margin-bottom: 100px !important;  /* Adjust this value as needed */
+}
+
+.clicked {
+    background-color: #FF0F7B; /* replace #yourColor with your desired color */
+}
+
