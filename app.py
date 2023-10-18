@@ -30,7 +30,7 @@ def get_recommendations():
     data = request.get_json()
     prompt = data['prompt']
 
-    openai.api_key = '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'
+    openai.api_key = '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'
 
     response = openai.Completion.create(
       engine="text-davinci-002",
