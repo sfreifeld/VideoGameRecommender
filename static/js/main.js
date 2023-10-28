@@ -105,6 +105,7 @@ for (var i = 0; i < buttons.length; i++) {
 // RECOMMENDATIONS
 
 document.querySelector('#submit-btn').addEventListener('click', function() {
+    $('#loading-overlay').addClass('visible');
     // Get the user's selected favorite games
     var favoriteGames = Array.from(document.querySelectorAll('#games-container .selected-game')).map(function(gameElement) {
         return gameElement.querySelector('p').textContent.trim();
@@ -139,18 +140,34 @@ document.querySelector('#submit-btn').addEventListener('click', function() {
         success: function(response) {
             // Clear previous recommendations
             $('#recommendations-container').empty();
+            $('#learnMore').show();
+            $('#loading-overlay').removeClass('visible');
+
+        
 
             // Display the recommendation
-            response.recommendation.forEach(function(game) {
+            for (const game of response.recommendation) {
                 // Replace underscores with spaces
                 var gameName = game.replace(/_/g, ' ');
-
+            
                 // Create a new paragraph element for the game
                 var gameElement = $('<p>').text(gameName);
+            
+                var gameDiv = $('<div>', { class: 'gameDiv' });
+            
+                gameDiv.append(gameElement);
+                console.log(response.covers)
+                // Check if a cover exists for the game
+                var cover = response.covers[response.recommendation.indexOf(game)];
+                if (cover && cover !== '') {
+                    var coverElement = $('<img>', { class: 'gameCovers', src: cover });
+                    gameDiv.append(coverElement);
+                }
+            
+                $('#recommendations-container').append(gameDiv);
+            }
 
-                // Append the game element to the container
-                $('#recommendations-container').append(gameElement);
-            });
+      
         }
     });
 });
