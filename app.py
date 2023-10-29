@@ -30,7 +30,7 @@ def search_game():
 
 @app.route('/get_recommendations', methods=['POST'])
 def get_recommendations():
-    '''data = request.get_json()
+    data = request.get_json()
     prompt = data['prompt']
 
     
@@ -44,14 +44,14 @@ def get_recommendations():
       engine="text-davinci-002",
       prompt=prompt,
       max_tokens=100
-    )'''
+    )
 
     # Extract the list of game names from the response
-    #recommendation = response.choices[0].text.strip()
-    #start = recommendation.find('[')
-    #end = recommendation.find(']') + 1
-    #games = json.loads(recommendation[start:end])
-    games = ["Super Mario Odyssey", "Dark Souls: Remastered", "Undertale"]
+    recommendation = response.choices[0].text.strip()
+    start = recommendation.find('[')
+    end = recommendation.find(']') + 1
+    games = json.loads(recommendation[start:end])
+    ##games = ["Super Mario Odyssey", "Dark Souls: Remastered", "Undertale"]
 
     game_details = []
     for game in games:
@@ -95,6 +95,10 @@ def game_info(game_name):
 
     # Pass the game details to the template
     return render_template('game_info.html', game={'name': game_name, 'cover': '', 'description': 'No details available for this game.'})
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 
 @app.errorhandler(500)
