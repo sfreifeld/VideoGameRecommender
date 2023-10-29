@@ -121,7 +121,7 @@ document.querySelector('#submit-btn').addEventListener('click', function() {
     var consoleName = consoleDropdown.options[consoleDropdown.selectedIndex].text;
 
     // Create the prompt
-    var prompt = `Please give me 5 video game recommendations using the following information.  
+    var prompt = `Please give me 3 video game recommendations using the following information.  
     The response should be in this format, replacing 'title' with its respective title.  All spaces in the title name should be replaced with _
     ['title','title','title','title','title']
     Please do not return any text besides the one array.
@@ -142,32 +142,26 @@ document.querySelector('#submit-btn').addEventListener('click', function() {
             $('#recommendations-container').empty();
             $('#learnMore').show();
             $('#loading-overlay').removeClass('visible');
-
-        
-
+    
             // Display the recommendation
-            for (const game of response.recommendation) {
-                // Replace underscores with spaces
-                var gameName = game.replace(/_/g, ' ');
-            
+            for (const game of response.recommendations) {
                 // Create a new paragraph element for the game
-                var gameElement = $('<p>').text(gameName);
-            
+                var gameElement = $('<a>').text(game.name);
+                gameElement.attr('href', '/game_info/' + encodeURIComponent(game.name));
+    
                 var gameDiv = $('<div>', { class: 'gameDiv' });
-            
+    
                 gameDiv.append(gameElement);
-                console.log(response.covers)
+    
                 // Check if a cover exists for the game
-                var cover = response.covers[response.recommendation.indexOf(game)];
-                if (cover && cover !== '') {
-                    var coverElement = $('<img>', { class: 'gameCovers', src: cover });
+                if (game.cover && game.cover !== '') {
+                    var coverElement = $('<img>', { class: 'gameCovers', src: game.cover });
                     gameDiv.append(coverElement);
                 }
-            
+    
                 $('#recommendations-container').append(gameDiv);
             }
-
-      
         }
     });
 });
+

@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, session
 import requests
 import json
 import openai
@@ -6,6 +6,7 @@ import time
 
 
 app = Flask(__name__)
+app.secret_key = 'yMk1vNu3muhFd4QzvcNYhhlYLXU'
 
 
 
@@ -50,39 +51,50 @@ def get_recommendations():
     #start = recommendation.find('[')
     #end = recommendation.find(']') + 1
     #games = json.loads(recommendation[start:end])
-    games = ["The Legend of Zelda: Breath of the Wild", "Super Mario Odyssey", "Dark Souls: Remastered", "Bloodstained: Curse of the Moon", "Undertale"]
+    games = ["Super Mario Odyssey", "Dark Souls: Remastered", "Undertale"]
 
-
-    # Query MobyGames API for each game and get their covers
-    
-    game_covers = []
+    game_details = []
     for game in games:
         response = requests.get(f"https://api.mobygames.com/v1/games?format=normal&title={game}&api_key=moby_yMk1vNu3muhFd4QzvcNYhhlYLXU")
         data = response.json()
-        print(data)
         if 'games' in data and len(data['games']) > 0:
-            game_covers.append(data['games'][0]['sample_cover']['image'] if data['games'][0]['sample_cover'] else '')
-            print(game_covers)
+            game_data = data['games'][0]
+            game_info = {
+                'name': game_data['title'],
+                'cover': game_data['sample_cover']['image'] if game_data['sample_cover'] else '',
+                'description': game_data['description'] if 'description' in game_data else 'No description available.',
+                'genres': game_data['genres'],
+                'platforms': game_data['platforms'],
+                'moby_score': game_data['moby_score']
+            }
+            game_details.append(game_info)
         else:
-            game_covers.append('')
-        print(game_covers)
+            game_details.append({
+                'name': game,
+                'cover': '',
+                'description': 'No details available for this game.'
+            })
         time.sleep(1)
-    return jsonify({'recommendation': games, 'covers': game_covers})
 
-'''
-The Legend of Zelda: Breath of the Wild
+    # Store the game details in the user's session
+    session['game_details'] = game_details
 
-Super Mario Odyssey
-
-Dark Souls: Remastered
-
-Bloodstained: Curse of the Moon
-
-Undertale
-
-'''
+    return jsonify({'recommendations': game_details})
 
 
+
+
+@app.route('/game_info/<game_name>')
+def game_info(game_name):
+    # Retrieve the game details from the API
+    game_details = session.get('game_details', []) # Replace this with your actual function
+
+    for game in game_details:
+        if game['name'] == game_name:
+            return render_template('game_info.html', game=game)
+
+    # Pass the game details to the template
+    return render_template('game_info.html', game={'name': game_name, 'cover': '', 'description': 'No details available for this game.'})
 
 
 @app.errorhandler(500)
