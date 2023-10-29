@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
 </head>
 
 <body class="text-white">
@@ -32,29 +32,24 @@
         </div>
     </nav>
 
+
+    
     <div class="container mt-5">
-        <div class="row">
-            <div class="col-12">
-                <h1>{{ game.name }}</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="game-details">
-                    <h2><b>{{ game.title }}</b></h2>
-                    <a href="https://www.google.com"> <h3><b>Buy now!</b></h3></a>
-                    <br>
-                    <p><b>Genre:</b> {{ game.genres[0].genre_name if game.genres else 'N/A' }}</p>
-                    <p><b>First Release Date: </b> {{ game.platforms[0].first_release_date if game.platforms else 'N/A' }}</p>
-                    <p><b>Platforms:</b> {% for platform in game.platforms %}{{ platform.platform_name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
-                    <p><b>Score:</b> {{ game.moby_score }}</p>
-                </div>
-                <img src="{{ game.cover }}" alt="{{ game.title }} cover image" class="img-fluid">
-            </div>
-            <div class="col-md-6">
-                <p>{{ game.description|safe }}</p>
-            </div>
-        </div>
+        <h1> <b>What do I wanna play next?</b></h1>
+        <br>
+        <p> Hey there, gamer! 🎮</p>
+        
+        <p>Ever had that moment when you've just completed an epic game, the credits are rolling, and you're left with that "Now what?" feeling? Or maybe you're just in a gaming slump, unsure of what to dive into next. We've all been there, and that's why "What do I wanna play next?" was born!</p>
+            
+        <p>Our mission? Simple. We want to help you discover your next gaming obsession. Think of us as that super-knowledgeable friend at a game store, but without the pressure to buy anything. (And hey, we won't judge you if you've never heard of that obscure indie title!)</p>
+            
+        <p>Using a blend of magic, algorithms, and a touch of pixie dust (okay, mostly algorithms... but we like to think there's some magic in there), we curate suggestions tailored just for you. Whether you're into sprawling RPGs, heart-pounding shooters, or calming indie gems, we've got something for every player out there.</p>
+            
+        <p>So go on, take the plunge, and let us guide you to your next virtual adventure. Happy gaming, and may your quests always be legendary!</p>
+            
+        <p>Cheers and game on! 🕹️ </p>
+            
+        <p> - The "What do I wanna play next?" Team </p>
     </div>
 
 
